@@ -5,8 +5,10 @@ const chai = require("chai");
 const sinonChai = require("sinon-chai");
 
 const Dispatcher = require("../lib/schemaBuilder/dispatcher");
+const dbSetup = require("./db-setup");
 
 before(function () {
+  dbSetup();
   chai.use(sinonChai);
 });
 

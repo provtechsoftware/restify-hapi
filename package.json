@@ -36,10 +36,14 @@
     "chai": "3.5.0",
     "co-mocha": "1.2.0",
     "hapi": "16.1.0",
+    "hapi-swagger": "7.6.0",
+    "inert": "4.1.0",
     "istanbul": "0.4.5",
     "mocha": "3.2.0",
     "mongoose": "4.8.1",
+    "mongoose-auto-increment": "5.0.1",
     "sinon": "1.17.7",
-    "sinon-chai": "2.8.0"
+    "sinon-chai": "2.8.0",
+    "vision": "4.1.1"
   }
 }

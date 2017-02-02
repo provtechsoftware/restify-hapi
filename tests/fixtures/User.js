@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const autoIncrement = require("mongoose-auto-increment");
 const Schema = mongoose.Schema;
 
 const now = new Date("2017-01-01");
@@ -29,4 +30,5 @@ const UserSchema = new Schema({
   }
 });
 
+UserSchema.plugin(autoIncrement.plugin, "User");
 module.exports = mongoose.model("User", UserSchema);
