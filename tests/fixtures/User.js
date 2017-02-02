@@ -1,9 +1,11 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+"use strict";
 
-var now = new Date("2017-01-01");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+const now = new Date("2017-01-01");
+
+const UserSchema = new Schema({
   name:       String,
   email:      { type: String, enum: ["test", "test2"], minlength: 3, maxlength: 10, match: /.*/, required: true},
   binary:     { type: Buffer, required: true },
