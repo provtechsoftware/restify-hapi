@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node index.js",
         "test": "npm run test-unit",
-        "test-unit": "NODE_ENV=test mocha --require co-mocha './**/*.spec.js'",
+        "test-unit": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
         "test-server": "NODE_ENV=development node tests/server.js"
     },
     "repository": {
@@ -44,6 +44,7 @@
         "mocha": "3.2.0",
         "mongoose": "4.8.1",
         "mongoose-auto-increment": "5.0.1",
+        "nyc": "^10.1.2",
         "sinon": "1.17.7",
         "sinon-chai": "2.8.0",
         "vision": "4.1.1"
