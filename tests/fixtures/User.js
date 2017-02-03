@@ -8,13 +8,13 @@ const now = new Date("2017-01-01");
 
 const UserSchema = new Schema({
   name:       String,
-  email:      { type: String, enum: ["test", "test2"], minlength: 3, maxlength: 10, match: /.*/, required: true},
+  email:      { type: String, enum: ["te@te.ch", "test2"], minlength: 3, maxlength: 10, match: /.*/, required: true},
   binary:     { type: Buffer, required: true },
   living:     { type: Boolean, required: true },
+  password:   { type: String, required: true, minlength: 8 },
   updated:    { type: Date, default: now, min: now, required: true },
   age:        { type: Number, min: 18, max: 65, required: true },
   mixed:      { type: Schema.Types.Mixed, required: true },
-  _someId:    { type: Schema.Types.ObjectId, required: true },
   array:      [],
   arrayTwo:   { type: Array, required: true, min: 2, max: 5 },
   ofString:   [String],

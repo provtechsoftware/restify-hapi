@@ -107,7 +107,7 @@ const initRoutes = () => {
     method: "GET",
     path: "/",
     handler: (request, reply) => {
-      return reply().redirect("/documentation");
+      return reply.redirect("/documentation");
     }
   });
 };

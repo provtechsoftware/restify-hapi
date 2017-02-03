@@ -5,8 +5,8 @@ const autoIncrement = require("mongoose-auto-increment");
 const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
-  name: String
+  name: { type: String, required: true }
 });
 
-CompanySchema.plugin(autoIncrement.plugin, "Company")
+CompanySchema.plugin(autoIncrement.plugin, "Company");
 module.exports = mongoose.model("Company", CompanySchema);
