@@ -4,7 +4,7 @@ const Hapi = require("hapi");
 const Inert = require("inert");
 const Vision = require("vision");
 const HapiSwagger = require("hapi-swagger");
-const Pack = require("./package");
+const Pack = require("../package");
 
 const async = require("async");
 const mongoose = require("mongoose");
@@ -13,7 +13,7 @@ const autoIncrement = require("mongoose-auto-increment");
 const server = new Hapi.Server();
 const Logger = console;
 
-const Restify = require("./index.js");
+const Restify = require("../index.js");
 
 
 
@@ -84,8 +84,8 @@ const loadServer = (next) => {
 
 /* =====  Routes ===== */
 const initRoutes = () => {
-  const User = require("./tests/fixtures/User");
-  const Company = require("./tests/fixtures/Company");
+  const User = require("./fixtures/User");
+  const Company = require("./fixtures/Company");
 
   const userOptions = {
     debug: false
