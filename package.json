@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node index.js",
         "test": "npm run test-unit",
-        "test-unit": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
+        "test-unit": "NODE_ENV=test mocha --require co-mocha './**/*.spec.js'",
+        "test-cover": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
         "test-server": "NODE_ENV=development node tests/server.js"
     },
     "repository": {

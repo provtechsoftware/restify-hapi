@@ -27,6 +27,10 @@ server.connection({
 
 /* =====  Mongoose Connection ===== */
 const loadMongoose = (next) => {
+  if (process.env.NODE_ENV === "test") {
+    return next();
+  }
+
   const url = "mongodb://localhost:27017/restify?auto_reconnect=true";
   const db = mongoose.connection;
 
@@ -112,23 +116,37 @@ const initRoutes = () => {
   });
 };
 
-
-
 /* ===== Main ===== */
-async.waterfall([
-  loadMongoose,
-  loadServer
-], (err) => {
-  if (err) {
-    Logger.error(err);
-  }
+const start = (callback) => {
 
-  server.start((err) => {
+  async.waterfall([
+    loadMongoose,
+    loadServer
+  ], (err) => {
     if (err) {
       Logger.error(err);
-    } else {
-      Logger.info(`Server running at: ${server.info.uri}`);
-      initRoutes();
     }
+
+    server.start((err) => {
+      if (err) {
+        Logger.error(err);
+      } else {
+        Logger.info(`Server running at: ${server.info.uri}`);
+        initRoutes();
+        if (callback) {
+          return callback(server);
+        } else {
+          return;
+        }
+      }
+    });
   });
-});
+};
+
+if (!module.parent) {
+  start();
+}
+
+module.exports = {
+  start
+};
