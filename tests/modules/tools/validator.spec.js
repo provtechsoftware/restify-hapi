@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const Validator = require("./validator");
+const Validator = require("../../../lib/tools/validator");
 
 let passwordValidatorSettings = {
   "minlength": 8,

@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const Security = require("./security");
+const Security = require("../../../lib/tools/security");
 
 describe("The Security module", function() {
 

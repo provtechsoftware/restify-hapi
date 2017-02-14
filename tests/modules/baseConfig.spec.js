@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const BaseConfig = require("./baseConfig");
+const BaseConfig = require("../../lib/baseConfig");
 
 describe("The BaseConfig module", function() {
 

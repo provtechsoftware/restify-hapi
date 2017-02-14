@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const BufferSchema = require("./bufferSchema");
+const BufferSchema = require("../../../lib/schemaBuilder/bufferSchema");
 
 describe("The BufferSchema module", function() {
 

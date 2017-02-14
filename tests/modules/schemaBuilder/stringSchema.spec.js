@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const StringSchema = require("./stringSchema");
+const StringSchema = require("../../../lib/schemaBuilder/stringSchema");
 
 describe("The StringSchema module", function() {
 

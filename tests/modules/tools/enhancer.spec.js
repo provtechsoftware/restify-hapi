@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const Enhancer = require("./enhancer");
+const Enhancer = require("../../../lib/tools/enhancer");
 
 describe("The Enhancer module", function() {
   const info = {

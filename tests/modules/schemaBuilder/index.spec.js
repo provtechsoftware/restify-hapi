@@ -1,7 +1,7 @@
 "use strict";
 
 const expect = require("chai").expect;
-const SchemaBuilder = require("./index");
+const SchemaBuilder = require("../../../lib/schemaBuilder/index");
 
 describe("The SchemaBuilder module", function() {
 

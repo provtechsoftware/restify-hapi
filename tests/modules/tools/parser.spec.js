@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const Parser = require("./parser");
+const Parser = require("../../../lib/tools/parser");
 
 describe("The Parser module", function() {
 

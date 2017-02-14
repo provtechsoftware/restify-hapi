@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const BooleanSchema = require("./booleanSchema");
+const BooleanSchema = require("../../../lib/schemaBuilder/booleanSchema");
 
 describe("The BooleanSchema module", function() {
 

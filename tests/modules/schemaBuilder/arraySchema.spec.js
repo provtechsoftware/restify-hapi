@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const ArraySchema = require("./arraySchema");
+const ArraySchema = require("../../../lib/schemaBuilder/arraySchema");
 
 describe("The ArraySchema module", function() {
 

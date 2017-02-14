@@ -1,7 +1,7 @@
 "use strict";
 
 const expect = require("chai").expect;
-const HandlerBuilder = require("./index");
+const HandlerBuilder = require("../../../lib/handlerBuilder/index");
 
 describe("The HandlerBuilder module", function() {
 

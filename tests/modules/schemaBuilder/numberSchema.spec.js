@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const NumberSchema = require("./numberSchema");
+const NumberSchema = require("../../../lib/schemaBuilder/numberSchema");
 
 describe("The NumberSchema module", function() {
 

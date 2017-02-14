@@ -2,7 +2,7 @@
 
 const expect = require("chai").expect;
 
-const DateSchema = require("./dateSchema");
+const DateSchema = require("../../../lib/schemaBuilder/dateSchema");
 
 describe("The DateSchema module", function() {
 
