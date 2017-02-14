@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const autoIncrement = require("mongoose-auto-increment");
 const Schema = mongoose.Schema;
 
+require("./Company");
+
 const now = new Date("2017-01-01");
 
 const UserSchema = new Schema({
@@ -27,7 +29,8 @@ const UserSchema = new Schema({
   nested: {
     stuff: { type: String, lowercase: true, trim: true },
     otherStuff: { type: Number, required: true }
-  }
+  },
+  company:    { type: Number, ref: "Company", required: true }
 });
 
 UserSchema.plugin(autoIncrement.plugin, "User");

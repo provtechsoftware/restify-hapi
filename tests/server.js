@@ -92,7 +92,12 @@ const initRoutes = () => {
   const Company = require("./fixtures/Company");
 
   const userOptions = {
-    debug: false
+    debug: false,
+    routes: {
+      findAll: {
+        populate: false
+      }
+    }
   };
 
   const userRoutes = Restify.restify(User, userOptions, Logger);
