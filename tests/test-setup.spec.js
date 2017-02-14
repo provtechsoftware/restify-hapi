@@ -25,8 +25,9 @@ before(function (done) {
   });
 });
 
-beforeEach(function () {
+beforeEach(function (done) {
   this.sandbox = sinon.sandbox.create();
+  this.ResourceHelper.seedDatabase(this.Company, 1, done);
 });
 
 afterEach(function () {

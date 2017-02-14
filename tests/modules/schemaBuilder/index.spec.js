@@ -12,7 +12,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(query.isJoi).to.equal(true);
     expect(query._type).to.equal("object");
-    expect(children).to.have.length(12);
+    expect(children).to.have.length(13);
     expect(children).to.have.deep.property("[0].key", "offset");
     expect(children).to.have.deep.property("[1].key", "limit");
     expect(children).to.have.deep.property("[2].key", "sort");
@@ -25,6 +25,7 @@ describe("The SchemaBuilder module", function() {
     expect(children).to.have.deep.property("[9].key", "ageQuery");
     expect(children).to.have.deep.property("[10].key", "nested.stuffQuery");
     expect(children).to.have.deep.property("[11].key", "nested.otherStuffQuery");
+    expect(children).to.have.deep.property("[12].key", "companyQuery");
   });
 
   it("generates the findOne schema for the User model", function() {
@@ -45,7 +46,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(payload.isJoi).to.equal(true);
     expect(payload._type).to.equal("object");
-    expect(children).to.have.length(19);
+    expect(children).to.have.length(20);
     expect(children).to.not.have.deep.property("[0].key", "id");
   });
 
@@ -63,7 +64,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(payload.isJoi).to.equal(true);
     expect(payload._type).to.equal("object");
-    expect(children).to.have.length(19);
+    expect(children).to.have.length(20);
     expect(children).to.not.have.deep.property("[0].key", "id");
   });
 
@@ -76,7 +77,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(payload.isJoi).to.equal(true);
     expect(payload._type).to.equal("array");
-    expect(children).to.have.length(20);
+    expect(children).to.have.length(21);
     expect(children).to.not.have.deep.property("[0].key", "id");
   });
 

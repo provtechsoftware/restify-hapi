@@ -29,7 +29,8 @@ const generatePayload = (modelName) => {
       ofBoolean: [true, false],
       ofMixed: ["mixed1", "mixed2"],
       "nested.stuff": "stuff",
-      "nested.otherStuff": 10
+      "nested.otherStuff": 10,
+      company: 0
     };
     break;
 
@@ -52,17 +53,16 @@ const generateResource = (Model, callback) => {
   switch (Model.modelName) {
   case "User":
     resource = new Model(generatePayload("User"));
-    break;
+    return callback(null, resource);
 
   case "Company":
     resource = new Model(generatePayload("Company"));
-    break;
+    return callback(null, resource);
 
   default:
-    break;
+    return callback(null, resource);
   }
 
-  return callback(null, resource);
 };
 
 const seedDatabase = (Model, number, done) => {
