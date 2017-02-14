@@ -5,7 +5,7 @@ const expect = require("chai").expect;
 describe("The CreateHandler module", function() {
 
   it("saves a newly created User object", function (done) {
-    const userPayload = this.generatePayload("User");
+    const userPayload = this.ResourceHelper.generatePayload("User");
     const saveUserStub = this.sandbox.stub(this.User.prototype, "save", function(callback) {
       callback(null, userPayload);
     });
@@ -18,7 +18,7 @@ describe("The CreateHandler module", function() {
   });
 
   it("rejects a newly created User object with missing attributes", function (done) {
-    let userPayload = this.generatePayload("User");
+    let userPayload = this.ResourceHelper.generatePayload("User");
     delete userPayload.email;
     const saveUserStub = this.sandbox.stub(this.User.prototype, "save", function(callback) {
       callback(null, userPayload);

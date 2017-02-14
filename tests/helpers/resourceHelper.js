@@ -65,14 +65,28 @@ const generateResource = (Model, callback) => {
   return callback(null, resource);
 };
 
-const seedDatabase = (Model, done) => {
-  const entries = [1, 2, 3, 4, 5];
+const seedDatabase = (Model, number, done) => {
+  let count = 0;
 
-  async.eachSeries(entries, (entry, next) => {
-    generateResource(Model, (err, modelEntry) => {
-      modelEntry.save(next);
-    });
-  }, done);
+  if (isNaN(number) && typeof number === "function") {
+    done = number;
+    number = 5;
+  }
+
+  async.whilst(
+    () => { return (count < number); },
+    (next) => {
+      count++;
+      generateResource(Model, (err, modelEntry) => {
+        if (err) {
+          return next(err);
+        }
+
+        modelEntry.save(next);
+      });
+    },
+    done
+  );
 };
 
 module.exports = {

@@ -25,26 +25,24 @@ after((done) => {
   });
 });
 
-const dropCollection = (modelName, callback) => {
-  if (!modelName || !modelName.length) {
-    return callback(new Error("You must provide the name of a model"));
-  }
+const clearCollections = (callback) => {
+  const models = _.chain(_.keys(connection.models)).filter((model) => {
+    return (model !== "IdentityCounter");
+  }).value();
 
-  const model = mongoose.model(modelName);
+  async.eachSeries(models, (model, next) => {
+    const Model = mongoose.model(model);
 
-  model.remove({}, () => {
-    if (modelName !== "IdentityCounter") {
-      delete model.base.modelSchemas[modelName];
-      delete connection.models[modelName];
-      delete connection.collections[model.collection.collectionName];
-    }
-    return callback();
-  });
+    Model.resetCount((err) => {
+      if (err) {
+        return next(err);
+      }
+
+      Model.find({}).remove().exec(next);
+    });
+  }, callback);
 };
 
 module.exports = () => {
-  afterEach(function(done) {
-    const models = _.keys(connection.models).reverse();
-    async.eachSeries(models, dropCollection, done);
-  });
+  afterEach(clearCollections);
 };

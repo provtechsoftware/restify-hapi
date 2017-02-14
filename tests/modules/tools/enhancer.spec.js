@@ -22,7 +22,7 @@ describe("The Enhancer module", function() {
       "multi": "users"
     };
 
-    this.generateResource(this.User, (err, resource) => {
+    this.ResourceHelper.generateResource(this.User, (err, resource) => {
       expect(err).to.equal(null);
 
       const id = resource._id;
@@ -43,7 +43,7 @@ describe("The Enhancer module", function() {
       "total": 10
     };
 
-    this.generateResource(this.Company, (err, resource) => {
+    this.ResourceHelper.generateResource(this.Company, (err, resource) => {
       expect(err).to.equal(null);
 
       const baseUrl = "http://localhost:4000/api/v1/companies";
@@ -83,7 +83,7 @@ describe("The Enhancer module", function() {
       "total": 10
     };
 
-    this.generateResource(this.Company, (err, resource) => {
+    this.ResourceHelper.generateResource(this.Company, (err, resource) => {
       expect(err).to.equal(null);
 
       const baseUrl = "http://localhost:4000/api/v1/companies";
@@ -130,7 +130,7 @@ describe("The Enhancer module", function() {
       }
     };
 
-    this.generateResource(this.Company, (err, resource) => {
+    this.ResourceHelper.generateResource(this.Company, (err, resource) => {
       expect(err).to.equal(null);
 
       const baseUrl = "http://localhost:4000/api/v1/companies";
