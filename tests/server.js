@@ -95,7 +95,6 @@ const initRoutes = () => {
   const Company = require("./fixtures/Company");
 
   const userOptions = {
-    debug: false,
     routes: {
       findAll: {
         populate: false
@@ -107,7 +106,6 @@ const initRoutes = () => {
   server.route(userRoutes);
 
   const companyOptions = {
-    debug: false,
     single: "company",
     multi: "companies"
   };
