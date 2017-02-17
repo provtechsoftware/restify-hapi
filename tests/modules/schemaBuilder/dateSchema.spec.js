@@ -27,7 +27,61 @@ describe("The DateSchema module", function() {
     };
     const schema = DateSchema.toJoi(this.User.schema.paths.updated, options, this.dispatcher);
 
-    expect(schema._flags).to.deep.equal({});
+    expect(schema._flags).to.not.have.property("presence");
+  });
+
+  it("generates a valid default value if non is present", function() {
+    const schema = {
+      path: "date",
+      isRequired: false,
+      options: {},
+    };
+    const defaultValue = DateSchema.generateDefaultValue(schema);
+
+    expect(new Date(defaultValue)).to.be.instanceof(Date);
+  });
+
+  it("applies the default value if one is given by the resource schema", function() {
+    const defaultDate = new Date("2017-01-01");
+    const schema = {
+      path: "date",
+      isRequired: false,
+      options: {
+        default: defaultDate
+      },
+      defaultValue: defaultDate
+    };
+    const defaultValue = DateSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal(defaultDate);
+  });
+
+  it("applies the min value if one is given by the resource schema", function() {
+    const minDate = new Date("2017-01-02");
+    const schema = {
+      path: "date",
+      isRequired: false,
+      options: {
+        min: minDate
+      }
+    };
+    const defaultValue = DateSchema.generateDefaultValue(schema);
+
+    expect(defaultValue.toISOString()).to.equal(minDate.toISOString());
+  });
+
+  it("applies the max value if one is given by the resource schema", function() {
+    const maxDate = new Date("2017-01-03");
+    const schema = {
+      path: "date",
+      isRequired: false,
+      options: {
+        max: maxDate
+      }
+    };
+    const defaultValue = DateSchema.generateDefaultValue(schema);
+
+    expect(defaultValue.toISOString()).to.equal(maxDate.toISOString());
   });
 
 });

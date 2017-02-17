@@ -26,4 +26,29 @@ describe("The MixedSchema module", function() {
     expect(schema._flags).to.not.have.deep.property("presence");
   });
 
+  it("generates a valid default value if non is present", function() {
+    const schema = {
+      path: "mixed",
+      isRequired: false,
+      options: {},
+    };
+    const defaultValue = MixedSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal("mixed");
+  });
+
+  it("applies the default value if one is given by the resource schema", function() {
+    const schema = {
+      path: "mixed",
+      isRequired: false,
+      options: {
+        default: "default mixed value"
+      },
+      defaultValue: "default mixed value"
+    };
+    const defaultValue = MixedSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal("default mixed value");
+  });
+
 });

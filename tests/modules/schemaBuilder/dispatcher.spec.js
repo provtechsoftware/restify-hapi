@@ -6,7 +6,7 @@ describe("The Dispatcher module", function() {
 
   it("parses an array of strings", function() {
     const options = {};
-    const schema = this.dispatcher.dispatch(this.User.schema.paths.ofString, options);
+    const schema = this.dispatcher.dispatch(this.User.schema.paths.ofString, options).schema;
 
     expect(schema.isJoi).to.equal(true);
     expect(schema._description).to.equal("this resources ofString field");
@@ -19,12 +19,17 @@ describe("The Dispatcher module", function() {
   it("handles an unknown instance type correctly", function() {
     const options = {};
     const fakeSchema = {
-      instance: "unknown"
+      instance: "unknown",
+      isRequired: false,
+      path: "fakeSchema",
+      options: {
+        default: "fakeSchema"
+      }
     };
-    const schema = this.dispatcher.dispatch(fakeSchema, options);
+    const schema = this.dispatcher.dispatch(fakeSchema, options).schema;
 
     expect(schema.isJoi).to.equal(true);
-    expect(schema._description).to.equal("this field could not be dispatched. Use with care!");
+    expect(schema._description).to.equal("this resources fakeSchema field");
     expect(schema._type).to.equal("any");
   });
 

@@ -6,21 +6,22 @@ const Schema = mongoose.Schema;
 
 require("./Company");
 
-const now = new Date("2017-01-01");
+const dummyDate = new Date("2017-01-01");
+const now = new Date();
 
 const UserSchema = new Schema({
-  name:       String,
-  email:      { type: String, enum: ["te@te.ch", "test2"], minlength: 3, maxlength: 10, match: /.*/, required: true},
-  binary:     { type: Buffer, required: true },
-  living:     { type: Boolean, required: true },
+  name:       { type: String, match: /.*/ },
+  email:      { type: String, minlength: 3, maxlength: 20, required: true, default: "example@user.com"},
+  binary:     { type: Buffer, required: true, default: "default buffer" },
+  living:     { type: Boolean, required: true, default: false },
   password:   { type: String, required: true, minlength: 8 },
-  updated:    { type: Date, default: now, min: now, required: true },
-  age:        { type: Number, min: 18, max: 65, required: true },
-  mixed:      { type: Schema.Types.Mixed, required: true },
+  updated:    { type: Date, default: now, min: dummyDate, required: true },
+  age:        { type: Number, min: 18, max: 65, required: true, default: 20 },
+  mixed:      { type: Schema.Types.Mixed, required: true, default: "test", enum: ["test", "test1", "test2"] },
   array:      [],
   arrayTwo:   { type: Array, required: true, min: 2, max: 5 },
   ofString:   [String],
-  ofNumber:   [Number],
+  ofNumber:   { type: Array, required: true, min: 2, default: [1, 2] },
   ofDates:    [Date],
   ofBuffer:   [Buffer],
   ofBoolean:  [Boolean],
