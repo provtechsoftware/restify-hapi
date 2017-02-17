@@ -28,7 +28,63 @@ describe("The NumberSchema module", function() {
     };
     const schema = NumberSchema.toJoi(this.User.schema.paths.age, options, this.dispatcher);
 
-    expect(schema._flags).to.deep.equal({});
+    expect(schema._flags).to.deep.equal({
+      "default": 20
+    });
+  });
+
+  it("generates a valid default value if non is present", function() {
+    const schema = {
+      path: "number",
+      isRequired: false,
+      options: {},
+    };
+    const defaultValue = NumberSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal(0);
+  });
+
+  it("applies the default value if one is given by the resource schema", function() {
+    const defaultNumber = 10;
+    const schema = {
+      path: "number",
+      isRequired: false,
+      options: {
+        default: defaultNumber
+      },
+      defaultValue: defaultNumber
+    };
+    const defaultValue = NumberSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal(defaultNumber);
+  });
+
+  it("applies the min value if one is given by the resource schema", function() {
+    const minNumber = 1;
+    const schema = {
+      path: "number",
+      isRequired: false,
+      options: {
+        min: minNumber
+      }
+    };
+    const defaultValue = NumberSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal(minNumber);
+  });
+
+  it("applies the max value if one is given by the resource schema", function() {
+    const maxNumber = 11;
+    const schema = {
+      path: "number",
+      isRequired: false,
+      options: {
+        max: maxNumber
+      }
+    };
+    const defaultValue = NumberSchema.generateDefaultValue(schema);
+
+    expect(defaultValue).to.equal(maxNumber);
   });
 
 });

@@ -26,4 +26,14 @@ describe("The BooleanSchema module", function() {
     expect(schema._flags).to.not.have.deep.property("presence");
   });
 
+  it("generates a valid default value if non is present", function() {
+    const defaultValue = BooleanSchema.generateDefaultValue(this.User.schema.paths.ofBoolean);
+    expect(defaultValue).to.equal(true);
+  });
+
+  it("applies the default value if one is given by the resource schema", function() {
+    const defaultValue = BooleanSchema.generateDefaultValue(this.User.schema.paths.living);
+    expect(defaultValue).to.equal(false);
+  });
+
 });

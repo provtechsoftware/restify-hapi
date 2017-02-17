@@ -34,4 +34,22 @@ describe("The ArraySchema module", function() {
     expect(schema._flags).to.not.have.deep.property("presence");
   });
 
+  it("generates a valid default value if non is present", function() {
+    const options = {};
+    const defaultValue = ArraySchema.generateDefaultValue(this.User.schema.paths.ofString, options, this.dispatcher);
+    expect(defaultValue).to.deep.equal(["string"]);
+  });
+
+  it("generates the correct amount of default values if the min flag is present", function() {
+    const options = {};
+    const defaultValue = ArraySchema.generateDefaultValue(this.User.schema.paths.arrayTwo, options, this.dispatcher);
+    expect(defaultValue).to.deep.equal(["mixed", "mixed"]);
+  });
+
+  it("applies the default value if one is given by the resource schema", function() {
+    const options = {};
+    const defaultValue = ArraySchema.generateDefaultValue(this.User.schema.paths.ofNumber, options, this.dispatcher);
+    expect(defaultValue).to.deep.equal([1, 2]);
+  });
+
 });
