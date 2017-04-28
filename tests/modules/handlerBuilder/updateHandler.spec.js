@@ -65,4 +65,28 @@ describe("The UpdateHandler module", function() {
     });
   });
 
+  it("rejects the update of an object with a belongsTo relationship if the reference object does not exist", function(done) {
+    const fields = {
+      company: 10
+    };
+
+    this.server.inject({ method: "PUT", url: "/api/v1/users/0", payload: fields}, (res) => {
+      expect(res.statusCode).to.equal(400);
+      expect(res.result.message).to.equal("Company with id=10 was not found");
+      done();
+    });
+  });
+
+  it("rejects the update of an object with a hasMany relationship if the reference object(s) do not exist", function(done) {
+    const fields = {
+      employees: [10]
+    };
+
+    this.server.inject({ method: "PUT", url: "/api/v1/companies/0", payload: fields}, (res) => {
+      expect(res.statusCode).to.equal(400);
+      expect(res.result.message).to.equal("User with id=10 was not found");
+      done();
+    });
+  });
+
 });

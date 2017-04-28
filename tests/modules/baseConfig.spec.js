@@ -91,12 +91,22 @@ describe("The BaseConfig module", function() {
 
   it("builds the default config for Company", function * () {
     const options = {
-      multi: "companies"
+      multi: "companies",
+      hasMany: [
+        {
+          fieldName: "employees",
+          destroy: true
+        }
+      ],
     };
     const config = yield BaseConfig.validateUserSettings(this.Company, options);
 
     expect(config).to.have.property("auth").that.equals(false);
     expect(config).to.have.property("tags").that.deep.equals(["api"]);
+    expect(config).to.have.property("hasMany").that.deep.equals([{
+      fieldName: "employees",
+      destroy: true
+    }]);
     expect(config.routes).to.have.property("findAll").that.deep.equals({
       "enabled": true,
       "method": "GET",

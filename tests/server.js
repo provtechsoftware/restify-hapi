@@ -107,7 +107,13 @@ const initRoutes = () => {
 
   const companyOptions = {
     single: "company",
-    multi: "companies"
+    multi: "companies",
+    hasMany: [
+      {
+        fieldName: "employees",
+        destroy: true
+      }
+    ]
   };
 
   const companyRoutes = Restify.restify(Company, companyOptions, Logger);

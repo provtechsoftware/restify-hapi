@@ -24,15 +24,36 @@ describe("The DeleteHandler module", function() {
   });
 
   it("removes a list of resources", function(done) {
-    const payload = [0, 1];
+    const payload = [0, 1, 2, 3, 4, 5];
 
     this.server.inject({ method: "DELETE", url: "/api/v1/users", payload: payload }, (res) => {
       expect(res.statusCode).to.equal(200);
       expect(res.result.result).to.deep.equal({
         "ok": 1,
-        "n": 2
+        "n": 5
       });
       done();
+    });
+  });
+
+  it("removes a list of resources with the related reference object if destroy is set to true", function(done) {
+    const companies = [0];
+    const payload = {
+      employees: [3,4]
+    };
+
+    this.server.inject({ method: "PUT", url: "/api/v1/companies/0", payload: payload}, (res) => {
+      expect(res.statusCode).to.equal(200);
+
+      this.server.inject({ method: "DELETE", url: "/api/v1/companies", payload: companies}, (res) => {
+        expect(res.statusCode).to.equal(200);
+
+        this.server.inject({ method: "GET", url: "/api/v1/users?_idQuery=[3,4]"}, (res) => {
+          expect(res.statusCode).to.equal(200);
+          expect(res.result).to.have.property("records").that.has.lengthOf(0);
+          done();
+        });
+      });
     });
   });
 

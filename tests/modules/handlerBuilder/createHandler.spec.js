@@ -32,5 +32,27 @@ describe("The CreateHandler module", function() {
     });
   });
 
+  it("rejects a newly created object with a belongsTo relationship if the reference object does not exist", function (done) {
+    let userPayload = this.ResourceHelper.generatePayload("User");
+    userPayload.company = 10;
+
+    this.server.inject({ method: "POST", url: "/api/v1/users", payload: userPayload }, (res) => {
+      expect(res.statusCode).to.equal(400);
+      expect(res.result.message).to.equal("Company with id=10 was not found");
+      done();
+    });
+  });
+
+  it("rejects a newly created object with a hasMany relationship if the reference object(s) do not exist", function (done) {
+    let companyPayload = this.ResourceHelper.generatePayload("Company");
+    companyPayload.employees.push(10);
+
+    this.server.inject({ method: "POST", url: "/api/v1/companies", payload: companyPayload }, (res) => {
+      expect(res.statusCode).to.equal(400);
+      expect(res.result.message).to.equal("User with id=10 was not found");
+      done();
+    });
+  });
+
 });
 

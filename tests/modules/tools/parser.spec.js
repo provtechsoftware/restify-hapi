@@ -4,11 +4,15 @@ const expect = require("chai").expect;
 
 const Parser = require("../../../lib/tools/parser");
 
+const dispatchQuery = (result) => {
+  return result.params;
+};
+
 describe("The Parser module", function() {
 
   it("generates the default limit and offset paging parameters", function() {
     const params = {};
-    const query = Parser.parse(params, this.User);
+    const query = dispatchQuery(Parser.parse(params, this.User));
 
     expect(query).to.have.property("offset").that.equals(0);
     expect(query).to.have.property("limit").that.equals(1000);
@@ -19,7 +23,7 @@ describe("The Parser module", function() {
       "offset": 10,
       "limit": 500
     };
-    const query = Parser.parse(params, this.User);
+    const query = dispatchQuery(Parser.parse(params, this.User));
 
     expect(query).to.have.property("offset").that.equals(10);
     expect(query).to.have.property("limit").that.equals(500);
@@ -27,7 +31,7 @@ describe("The Parser module", function() {
 
   it("generates the default sort, project, and query parameters", function() {
     const params = {};
-    const query = Parser.parse(params, this.User);
+    const query = dispatchQuery(Parser.parse(params, this.User));
 
     expect(query).to.have.property("sort").that.deep.equals({});
     expect(query).to.have.property("project").that.deep.equals({});
@@ -38,7 +42,7 @@ describe("The Parser module", function() {
     const params = {
       "sort": "-name,age"
     };
-    const query = Parser.parse(params, this.User);
+    const query = dispatchQuery(Parser.parse(params, this.User));
 
     expect(query).to.have.property("sort").that.deep.equals({
       "name": -1,
@@ -50,7 +54,7 @@ describe("The Parser module", function() {
     const params = {
       "project": "-name,age"
     };
-    const query = Parser.parse(params, this.User);
+    const query = dispatchQuery(Parser.parse(params, this.User));
 
     expect(query).to.have.property("project").that.deep.equals({
       "name": false,
@@ -65,12 +69,12 @@ describe("The Parser module", function() {
       "ageQuery": "age",
       "shouldNotPassQuery": "shouldNotPass"
     };
-    const query = Parser.parse(params, this.User);
+    const query = dispatchQuery(Parser.parse(params, this.User));
 
     expect(query).to.have.property("query").that.deep.equals({
       name: "name",
       email: "email",
-      "age": "age"
+      age: "age"
     });
   });
 

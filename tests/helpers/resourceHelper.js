@@ -36,7 +36,8 @@ const generatePayload = (modelName) => {
 
   case "Company":
     payload = {
-      name: randomString()
+      name: randomString(),
+      employees: []
     };
     break;
 

@@ -12,7 +12,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(query.isJoi).to.equal(true);
     expect(query._type).to.equal("object");
-    expect(children).to.have.length(13);
+    expect(children).to.have.length(14);
     expect(children).to.have.deep.property("[0].key", "offset");
     expect(children).to.have.deep.property("[1].key", "limit");
     expect(children).to.have.deep.property("[2].key", "sort");
