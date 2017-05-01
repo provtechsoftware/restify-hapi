@@ -1,7 +1,7 @@
 {
     "name": "@mike89/hapi-restify",
     "version": "1.0.0",
-    "description": "restify mongoose models for hapi with joi and boom",
+    "description": "Restify mongoose models for hapi with joi, boom, and swagger",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",

@@ -1,4 +1,7 @@
 # hapi-restify
+
+<img src="https://docs.google.com/drawings/d/1FolgXALLjPFrCQuVWc2q1Cr6MRjXdLhd7gypZVZLncU/pub?w=960&h=720">
+
 Restify mongoose models for hapi to use with joi and boom (and swagger)
 
 # Options
