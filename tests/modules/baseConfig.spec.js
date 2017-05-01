@@ -18,7 +18,10 @@ describe("The BaseConfig module", function() {
       "path": "/api/v1/users",
       "description": "Fetch all users",
       "notes": "Returns a list of all users",
-      "populate": false
+      "populate": false,
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": false
     });
     expect(config.routes).to.have.property("findOne").that.deep.equals({
       "enabled": true,
@@ -26,7 +29,10 @@ describe("The BaseConfig module", function() {
       "path": "/api/v1/users/{id}",
       "description": "Find this user",
       "notes": "Returns the user object belonging to this id",
-      "populate": true
+      "populate": true,
+      "skipRequired": false,
+      "skipInternals": false,
+      "skipId": false
     });
     expect(config.routes).to.have.property("create").that.deep.equals({
       "enabled": true,
@@ -41,7 +47,10 @@ describe("The BaseConfig module", function() {
         "numbers": true,
         "uppercase": true,
         "special": true
-      }
+      },
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": true
     });
     expect(config.routes).to.have.property("update").that.deep.equals({
       "enabled": true,
@@ -56,7 +65,10 @@ describe("The BaseConfig module", function() {
         "numbers": true,
         "uppercase": true,
         "special": true
-      }
+      },
+      "skipRequired": true,
+      "skipInternals": true,
+      "skipId": true
     });
     expect(config.routes).to.have.property("bulkUpdate").that.deep.equals({
       "enabled": true,
@@ -71,21 +83,30 @@ describe("The BaseConfig module", function() {
         "numbers": true,
         "uppercase": true,
         "special": true
-      }
+      },
+      "skipRequired": true,
+      "skipInternals": true,
+      "skipId": false
     });
     expect(config.routes).to.have.property("delete").that.deep.equals({
       "enabled": true,
       "method": "DELETE",
       "path": "/api/v1/users/{id}",
       "description": "Remove this user",
-      "notes": "Returns http status of this action"
+      "notes": "Returns http status of this action",
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": false
     });
     expect(config.routes).to.have.property("bulkDelete").that.deep.equals({
       "enabled": true,
       "method": "DELETE",
       "path": "/api/v1/users",
       "description": "Remove a set of users",
-      "notes": "Returns http status of this action"
+      "notes": "Returns http status of this action",
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": false
     });
   });
 
@@ -113,7 +134,10 @@ describe("The BaseConfig module", function() {
       "path": "/api/v1/companies",
       "description": "Fetch all companies",
       "notes": "Returns a list of all companies",
-      "populate": false
+      "populate": false,
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": false
     });
     expect(config.routes).to.have.property("findOne").that.deep.equals({
       "enabled": true,
@@ -121,7 +145,10 @@ describe("The BaseConfig module", function() {
       "path": "/api/v1/companies/{id}",
       "description": "Find this company",
       "notes": "Returns the company object belonging to this id",
-      "populate": true
+      "populate": true,
+      "skipRequired": false,
+      "skipInternals": false,
+      "skipId": false
     });
     expect(config.routes).to.have.property("create").that.deep.equals({
       "enabled": true,
@@ -136,7 +163,10 @@ describe("The BaseConfig module", function() {
         "numbers": true,
         "uppercase": true,
         "special": true
-      }
+      },
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": true
     });
     expect(config.routes).to.have.property("update").that.deep.equals({
       "enabled": true,
@@ -151,7 +181,10 @@ describe("The BaseConfig module", function() {
         "numbers": true,
         "uppercase": true,
         "special": true
-      }
+      },
+      "skipRequired": true,
+      "skipInternals": true,
+      "skipId": true
     });
     expect(config.routes).to.have.property("bulkUpdate").that.deep.equals({
       "enabled": true,
@@ -166,21 +199,30 @@ describe("The BaseConfig module", function() {
         "numbers": true,
         "uppercase": true,
         "special": true
-      }
+      },
+      "skipRequired": true,
+      "skipInternals": true,
+      "skipId": false
     });
     expect(config.routes).to.have.property("delete").that.deep.equals({
       "enabled": true,
       "method": "DELETE",
       "path": "/api/v1/companies/{id}",
       "description": "Remove this company",
-      "notes": "Returns http status of this action"
+      "notes": "Returns http status of this action",
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": false
     });
     expect(config.routes).to.have.property("bulkDelete").that.deep.equals({
       "enabled": true,
       "method": "DELETE",
       "path": "/api/v1/companies",
       "description": "Remove a set of companies",
-      "notes": "Returns http status of this action"
+      "notes": "Returns http status of this action",
+      "skipRequired": false,
+      "skipInternals": true,
+      "skipId": false
     });
   });
 
