@@ -1,54 +1,54 @@
 {
-  "name": "@mike89/hapi-restify",
-  "version": "1.0.0",
-  "description": "Restify mongoose models for hapi with joi, boom, and swagger",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "npm run test-unit",
-    "test-unit": "NODE_ENV=test mocha --require co-mocha './**/*.spec.js'",
-    "test-cover": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
-    "test-server": "NODE_ENV=development node tests/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/mbaertschi/hapi-restify.git"
-  },
-  "keywords": [
-    "nodejs",
-    "hapijs",
-    "mongoose",
-    "joi",
-    "boom",
-    "swagger"
-  ],
-  "author": "Michael Bärtschi <michael.baertschi@zebbra.ch> (http://zebbra.ch)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mbaertschi/hapi-restify/issues"
-  },
-  "homepage": "https://github.com/mbaertschi/hapi-restify#readme",
-  "dependencies": {
-    "async": "2.1.4",
-    "bcrypt": "1.0.2",
-    "boom": "4.2.0",
-    "joi": "10.2.0",
-    "lodash": "4.17.4",
-    "mongoose": "4.8.1"
-  },
-  "devDependencies": {
-    "bluebird": "^3.5.0",
-    "chai": "3.5.0",
-    "co-mocha": "1.2.0",
-    "hapi": "16.1.0",
-    "hapi-swagger": "7.6.0",
-    "inert": "4.1.0",
-    "istanbul": "0.4.5",
-    "mocha": "3.2.0",
-    "mongoose-auto-increment": "5.0.1",
-    "nyc": "^10.1.2",
-    "sinon": "1.17.7",
-    "sinon-chai": "2.8.0",
-    "vision": "4.1.1"
-  }
+    "name": "restify-hapi",
+    "version": "1.0.0",
+    "description": "Restify mongoose models for hapi with joi, boom, and swagger",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "npm run test-unit",
+        "test-unit": "NODE_ENV=test mocha --require co-mocha './**/*.spec.js'",
+        "test-cover": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
+        "test-server": "NODE_ENV=development node tests/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/mbaertschi/hapi-restify.git"
+    },
+    "keywords": [
+        "nodejs",
+        "hapijs",
+        "mongoose",
+        "joi",
+        "boom",
+        "swagger"
+    ],
+    "author": "Michael Bärtschi <michael.baertschi@zebbra.ch> (http://zebbra.ch)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/mbaertschi/restify-hapi/issues"
+    },
+    "homepage": "https://github.com/mbaertschi/restify-hapi#readme",
+    "dependencies": {
+        "async": "2.1.4",
+        "bcrypt": "1.0.2",
+        "boom": "4.2.0",
+        "joi": "10.2.0",
+        "lodash": "4.17.4",
+        "mongoose": "4.8.1"
+    },
+    "devDependencies": {
+        "bluebird": "^3.5.0",
+        "chai": "3.5.0",
+        "co-mocha": "1.2.0",
+        "hapi": "16.1.0",
+        "hapi-swagger": "7.6.0",
+        "inert": "4.1.0",
+        "istanbul": "0.4.5",
+        "mocha": "3.2.0",
+        "mongoose-auto-increment": "5.0.1",
+        "nyc": "^10.1.2",
+        "sinon": "1.17.7",
+        "sinon-chai": "2.8.0",
+        "vision": "4.1.1"
+    }
 }
