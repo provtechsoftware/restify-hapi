@@ -37,9 +37,9 @@ describe("The UpdateHandler module", function() {
       const encryptedPassword = res.result.password;
       const password = fields.password;
 
-      Security.comparePasswords(encryptedPassword, password, (err, valid) => {
-        expect(err).to.equal("Incorrect password");
-        expect(valid).to.equal(false);
+      Security.comparePasswords(password, encryptedPassword, (err, valid) => {
+        expect(err).to.equal(null);
+        expect(valid).to.equal(true);
         done();
       });
     });
