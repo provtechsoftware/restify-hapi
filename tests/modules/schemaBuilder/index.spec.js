@@ -12,20 +12,21 @@ describe("The SchemaBuilder module", function() {
 
     expect(query.isJoi).to.equal(true);
     expect(query._type).to.equal("object");
-    expect(children).to.have.length(14);
+    expect(children).to.have.length(15);
     expect(children).to.have.deep.property("[0].key", "offset");
     expect(children).to.have.deep.property("[1].key", "limit");
     expect(children).to.have.deep.property("[2].key", "sort");
     expect(children).to.have.deep.property("[3].key", "project");
-    expect(children).to.have.deep.property("[4].key", "nameQuery");
-    expect(children).to.have.deep.property("[5].key", "emailQuery");
-    expect(children).to.have.deep.property("[6].key", "livingQuery");
-    expect(children).to.have.deep.property("[7].key", "passwordQuery");
-    expect(children).to.have.deep.property("[8].key", "updatedQuery");
-    expect(children).to.have.deep.property("[9].key", "ageQuery");
-    expect(children).to.have.deep.property("[10].key", "nested.stuffQuery");
-    expect(children).to.have.deep.property("[11].key", "nested.otherStuffQuery");
-    expect(children).to.have.deep.property("[12].key", "companyQuery");
+    expect(children).to.have.deep.property("[4].key", "raw");
+    expect(children).to.have.deep.property("[5].key", "nameQuery");
+    expect(children).to.have.deep.property("[6].key", "emailQuery");
+    expect(children).to.have.deep.property("[7].key", "livingQuery");
+    expect(children).to.have.deep.property("[8].key", "passwordQuery");
+    expect(children).to.have.deep.property("[9].key", "updatedQuery");
+    expect(children).to.have.deep.property("[10].key", "ageQuery");
+    expect(children).to.have.deep.property("[11].key", "nested.stuffQuery");
+    expect(children).to.have.deep.property("[12].key", "nested.otherStuffQuery");
+    expect(children).to.have.deep.property("[13].key", "companyQuery");
   });
 
   it("generates the findOne schema for the User model", function() {
