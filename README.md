@@ -1,4 +1,4 @@
-# Restify-Hapi - Simplified HTTP client
+# Restify-Hapi - Fast and simple RESTful API builder for Hapi
 
 A RESTful API generator plugin for the [hapi](https://hapijs.com/) framework utilizing the [mongoose](mongoosejs.com) ODM, [hapi-swagger](https://github.com/glennjones/hapi-swagger) and [joi](https://github.com/hapijs/joi).
 
