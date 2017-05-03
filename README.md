@@ -17,20 +17,24 @@ Define your (mongoose) schema for your resource only once and reuse it (for joi)
 
 ## Example
 ```javascript
+  // make sure to register all schemas before applying the restifier!
   const User = require("./fixtures/User");
+  const Company = require("./fixtures/Company");
+
   const userOptions = {};
   const userRoutes = Restify.restify(User, userOptions, Logger);
   server.route(userRoutes);
 
-  const Company = require("./fixtures/Company");
   const companyOptions = {
     single: "company",
     multi: "companies",
     hasMany: [
-      {
+     {
         fieldName: "employees",
-        destroy: true
-      }
+        destroy: true,
+        archive: {
+          enabled: true
+        }
     ]
   };
   const companyRoutes = Restify.restify(Company, companyOptions, Logger);
@@ -38,23 +42,52 @@ Define your (mongoose) schema for your resource only once and reuse it (for joi)
 ```
 
 ## Table of contents
-- [Options](#options)
+- [Installation](#options)
+- [Configuration Options](#configuration-options)
+- [Default Routes](#default-routes)
 - [Query Pipeline](#query-pipeline)
 - [Aggregation Pipeline](#aggregation-pipeline)
 - [Tools](#tools)
 
-## Options
-The default options are as follows. You can overwrite all attribute values as long as they are valid for a hapi-server and as long as they conform to the joi-schema specification of the config object defined in [baseConfig](./lib/baseConfig.js)).
+## Installation
+This module was implemented and tested with:
+- NPM version 3.10.8
+- node version 4.x
+- mongodb version 3.x
+- mongoose version 4.x
+
+I do not know how this module will behave with other configurations.
+
+```bash
+$ npm install restify-hapi
+```
+
+[Back to top](#table-of-contents)
+
+## Configuration Options
+The default options (in this case for the sample `company` resource) are as follows. You can overwrite all attribute values as long as they are valid for a hapi-server and as long as they conform to the joi-schema specification of the config object defined in [baseConfig](./lib/baseConfig.js)).
 ```json
 {
+  "single": "company",
+  "multi": "companies",
+  "hasMany": [
+    {
+      "fieldName": "employees",
+      "destroy": true,
+      "archive": {
+        "enabled": true,
+        "attribute": "_archived"
+      }
+    }
+  ],
   "routes": {
     "findAll": {
-      "populate": false,
       "enabled": true,
       "method": "GET",
-      "path": "/api/v1/users",
-      "description": "Fetch all users",
-      "notes": "Returns a list of all users",
+      "path": "/api/v1/companies",
+      "description": "Fetch all companies",
+      "notes": "Returns a list of all companies",
+      "populate": false,
       "skipRequired": false,
       "skipInternals": true,
       "skipId": false
@@ -62,9 +95,9 @@ The default options are as follows. You can overwrite all attribute values as lo
     "findOne": {
       "enabled": true,
       "method": "GET",
-      "path": "/api/v1/users/{id}",
-      "description": "Find this user",
-      "notes": "Returns the user object belonging to this id",
+      "path": "/api/v1/companies/{id}",
+      "description": "Find this company",
+      "notes": "Returns the company object belonging to this id",
       "populate": true,
       "skipRequired": false,
       "skipInternals": false,
@@ -73,9 +106,9 @@ The default options are as follows. You can overwrite all attribute values as lo
     "create": {
       "enabled": true,
       "method": "POST",
-      "path": "/api/v1/users",
-      "description": "Create a new user",
-      "notes": "Returns the newly created user object",
+      "path": "/api/v1/companies",
+      "description": "Create a new company",
+      "notes": "Returns the newly created company object",
       "password": {
         "validate": true,
         "encrypt": true,
@@ -91,9 +124,9 @@ The default options are as follows. You can overwrite all attribute values as lo
     "update": {
       "enabled": true,
       "method": "PUT",
-      "path": "/api/v1/users/{id}",
-      "description": "Update this user",
-      "notes": "Returns the updated user object",
+      "path": "/api/v1/companies/{id}",
+      "description": "Update this company",
+      "notes": "Returns the updated company object",
       "password": {
         "validate": true,
         "encrypt": true,
@@ -109,9 +142,9 @@ The default options are as follows. You can overwrite all attribute values as lo
     "bulkUpdate": {
       "enabled": true,
       "method": "PUT",
-      "path": "/api/v1/users",
-      "description": "Update a set of users",
-      "notes": "Returns the list of updated users",
+      "path": "/api/v1/companies",
+      "description": "Update a set of companies",
+      "notes": "Returns the list of updated companies",
       "password": {
         "validate": true,
         "encrypt": true,
@@ -127,8 +160,8 @@ The default options are as follows. You can overwrite all attribute values as lo
     "delete": {
       "enabled": true,
       "method": "DELETE",
-      "path": "/api/v1/users/{id}",
-      "description": "Remove this user",
+      "path": "/api/v1/companies/{id}",
+      "description": "Remove this company",
       "notes": "Returns http status of this action",
       "skipRequired": false,
       "skipInternals": true,
@@ -137,8 +170,8 @@ The default options are as follows. You can overwrite all attribute values as lo
     "bulkDelete": {
       "enabled": true,
       "method": "DELETE",
-      "path": "/api/v1/users",
-      "description": "Remove a set of users",
+      "path": "/api/v1/companies",
+      "description": "Remove a set of companies",
       "notes": "Returns http status of this action",
       "skipRequired": false,
       "skipInternals": true,
@@ -150,31 +183,60 @@ The default options are as follows. You can overwrite all attribute values as lo
     "api"
   ],
   "prefix": "/api/v1",
-  "single": "user",
-  "multi": "users",
-  "hasMany": false,
-  "populate": true
+  "populate": true,
+  "archive": false
 }
 ```
 
-- `routes/x/password` settings for the `password` attribute in the payload of this route
-- `auth` must be a valid [hapi authentication](https://hapijs.com/tutorials/auth) setting (can be specified on root or on routes level)
-- `prefix` used as api prefix
 - `single` how this resource's single name should be (per default derived from the mongoose schema name)
 - `multi` how this resource's multi name should be (per default single name + s)
-- `hasMany` here you can define if this resource has a `has-many` relationship which should be destroyed when this resource is destroyed (see the [test-server](./tests/server.js) settings for example)
+- `hasMany` specify the has-many relationship options (this is optional. You can specify references without specifying any options here. In this case the destroy is set to false)
+  - `fieldName` the attribute name in the mongoose schema which references the reference model
+  - `destroy` whether to remove the referenced resources if this resource is removed (default is false)
+  - `archive` (only works if destroy is set to true)
+    - `enabeld` whether mark the resource as `archived` or to remove it from the collection upon removal
+    - `attribute` if archive policy is enabled the you can specify the attribute field name which should be used in the schema to mark this resource as archived (default is _archived). You have to make sure that the specified attribute field name exists on the schema, otherwise the library will throw an error
+- `routes` RESTful CRUD operations for this resource
+  - `enabled` whether to use this route or not (default set to true)
+  - `password` settings for the _password_ attribute in the payload of this route
+  - `skipXXX` you should not alter this settings
+  - `auth` authentication settings on route-layer
+- `auth` authentication settings on root-layer (will be applied for routes which have no auth settings specified). Must be a valid [hapi authentication](https://hapijs.com/tutorials/auth) setting
+- `prefix` used as api prefix
 - `populate` whether to populate reference resources or not
+- `archive` global archive policy
+
+[Back to top](#table-of-contents)
+
+## Default Routes
+- __[GET] /resources__ list all resources ([Query-Pipeline](#{query-pipeline) and [Aggregation Pipeline](#aggregation-pipeline) are available and paging is activated)
+- __[GET] /resources/{id}__ list resource details ([Aggregation Pipeline](#aggregation-pipeline) is available)
+- __[POST] /resocurces__ create a new resource
+- __[PUT] /resources/{id}__ update a resource
+- __[PUT] /resources__ bulk update resources
+- __[DELETE] /resources/{id}__ delete a resource
+- __[DELETE] /resources__ bulk delete resources
 
 [Back to top](#table-of-contents)
 
 ## Query Pipeline
-TODO
+`restify-hapi` provides query-paremeters out-of-the-box for almost every mongoose data type. You can query as following:
+- `single value` e.g. ?name=John
+- `array value` e.g. ?name=["John", "Doe"]
+- `valid mongodb query` e.g. {"name": {"$eq": "John"}}
+
+The query pipeline is not available for all routes. Please refere to [Default Routes](#default-routes) for more information.
+
 [Back to top](#table-of-contents)
 
 ## Aggregation Pipeline
-TODO
+`restify-hapi` also provides an interface to select only certain fields and to sort by fields
+- `sort` comma separated values (prefix with `-` for dsc sort). E.g. _sort=-_archived,name_
+- `project` select only a subset of fields. Works the same way as sort
+
 [Back to top](#table-of-contents)
 
 ## Tools
-TODO
+Paging, query pipeline, and aggregation pipeline make use of the modules stored in the [tools](./lib/tools) folder. You can use these tools also for resources which are not restified and which are manually added to the hapi-srever. These ensures that you paging, querying and all aggregations work the same way for those resources aswell. Please refere to the code for doc.
+
 [Back to top](#table-of-contents)

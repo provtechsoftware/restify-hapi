@@ -91,6 +91,8 @@ const loadServer = (next) => {
 
 /* =====  Routes ===== */
 const initRoutes = () => {
+  // first require all mongoose models because they might be referenced
+  // in the restify method
   const User = require("./fixtures/User");
   const Company = require("./fixtures/Company");
 
@@ -109,9 +111,15 @@ const initRoutes = () => {
     single: "company",
     multi: "companies",
     hasMany: [
+      // employees (users) are destroyed when this company is destroyed
+      // however in this case we apply the archive policy. This means
+      // that we do not remove the resources right mark them as _archived=true
       {
         fieldName: "employees",
-        destroy: true
+        destroy: true,
+        archive: {
+          enabled: true
+        }
       }
     ]
   };

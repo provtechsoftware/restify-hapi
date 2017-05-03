@@ -125,6 +125,7 @@ describe("The BaseConfig module", function() {
     expect(config).to.have.property("auth").that.equals(false);
     expect(config).to.have.property("tags").that.deep.equals(["api"]);
     expect(config).to.have.property("hasMany").that.deep.equals([{
+      archive: false,
       fieldName: "employees",
       destroy: true
     }]);

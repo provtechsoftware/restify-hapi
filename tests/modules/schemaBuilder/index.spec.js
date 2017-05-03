@@ -17,7 +17,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(query.isJoi).to.equal(true);
     expect(query._type).to.equal("object");
-    expect(children).to.have.length(24);
+    expect(children).to.have.length(25);
     expect(children).to.have.deep.property("[0].key", "offset");
     expect(children).to.have.deep.property("[1].key", "limit");
     expect(children).to.have.deep.property("[2].key", "sort");
@@ -71,7 +71,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(payload.isJoi).to.equal(true);
     expect(payload._type).to.equal("object");
-    expect(children).to.have.length(20);
+    expect(children).to.have.length(21);
     expect(children).to.not.have.deep.property("[0].key", "id");
   });
 
@@ -94,7 +94,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(payload.isJoi).to.equal(true);
     expect(payload._type).to.equal("object");
-    expect(children).to.have.length(20);
+    expect(children).to.have.length(21);
     expect(children).to.not.have.deep.property("[0].key", "id");
   });
 
@@ -112,7 +112,7 @@ describe("The SchemaBuilder module", function() {
 
     expect(payload.isJoi).to.equal(true);
     expect(payload._type).to.equal("array");
-    expect(children).to.have.length(21);
+    expect(children).to.have.length(22);
     expect(children).to.not.have.deep.property("[0].key", "id");
   });
 

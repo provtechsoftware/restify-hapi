@@ -51,7 +51,13 @@ describe("The DeleteHandler module", function() {
         this.server.inject({ method: "GET", url: "/api/v1/users?_idQuery=[3,4]"}, (res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.result).to.have.property("records").that.has.lengthOf(0);
-          done();
+
+          this.User.findById(3).lean().exec((err, user) => {
+            expect(err).to.be.equal(null);
+            expect(user._archived).to.equal(true);
+
+            done();
+          });
         });
       });
     });

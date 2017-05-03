@@ -30,7 +30,8 @@ const generatePayload = (modelName) => {
       ofMixed: ["mixed1", "mixed2"],
       "nested.stuff": "stuff",
       "nested.otherStuff": 10,
-      company: 0
+      company: 0,
+      _archived: false
     };
     break;
 
