@@ -13,9 +13,36 @@ restify-hapi is designed to be the simplest and fasted way possible to make REST
 
 Define your (mongoose) schema for your resource only once and reuse it (for joi). This enforces a strict and explicit API definition which, together with hapi-swagger, evaluates in a very detailed API documentation.
 
-![Overview](https://docs.google.com/drawings/d/1FolgXALLjPFrCQuVWc2q1Cr6MRjXdLhd7gypZVZLncU/pub?w=960&h=720)
+## Table of contents
+- [Installation](#options)
+- [Example](#example)
+- [Default Routes](#default-routes)
+- [Supported Data Types](#supported-data-types)
+- [Pagination](#pagination)
+- [Query Pipeline](#query-pipeline)
+- [Aggregation Pipeline](#aggregation-pipeline)
+- [Configuration Options](#configuration-options)
+- [Testing](#testing)
+- [Swagger](#swagger)
+- [Tools](#tools)
+
+## Installation
+This module was implemented and tested with:
+- NPM version 3.10.8
+- node version 4.x
+- mongodb version 3.x
+- mongoose version 4.x
+
+I do not know how this module will behave with other configurations.
+
+```bash
+$ npm install restify-hapi
+```
+
+[Back to top](#table-of-contents)
 
 ## Example
+This is the example we use in the [test hapi-server](./tests/server.js).
 ```javascript
   // make sure to register all schemas before applying the restifier!
   const User = require("./fixtures/User");
@@ -41,26 +68,82 @@ Define your (mongoose) schema for your resource only once and reuse it (for joi)
   server.route(companyRoutes);
 ```
 
-## Table of contents
-- [Installation](#options)
-- [Configuration Options](#configuration-options)
-- [Default Routes](#default-routes)
-- [Query Pipeline](#query-pipeline)
-- [Aggregation Pipeline](#aggregation-pipeline)
-- [Tools](#tools)
+[Back to top](#table-of-contents)
 
-## Installation
-This module was implemented and tested with:
-- NPM version 3.10.8
-- node version 4.x
-- mongodb version 3.x
-- mongoose version 4.x
+## Default Routes
+| Method | Path | Information |
+| --- | --- | --- |
+| GET | /resources | list all resources ([Pagination](#pagination), [Query-Pipeline](#{query-pipeline) and [Aggregation Pipeline](#aggregation-pipeline) are available) |
+| GET | /resources/{id} | list resource details ([Aggregation Pipeline](#aggregation-pipeline) is available) |
+| POST | /resources | create a new resource |
+| PUT | /resources/{id} | update a resource |
+| PUT | /resources | bulk update multiple resources |
+| DELETE | /resources/{id} | delete a resource |
+| DELETE | /resources | bulk delete multipe resources |
 
-I do not know how this module will behave with other configurations.
+[Back to top](#table-of-contents)
 
-```bash
-$ npm install restify-hapi
+## Supported Data Types
+
+The [User Schema](./tests/fixtures/User.js) summarizes all supported data-types and validations.
+
+```javascript
+const UserSchema = new Schema({
+  name:       { type: String, match: /.*/ },
+  email:      { type: String, minlength: 3, maxlength: 20, required: true, default: "example@user.com"},
+  binary:     { type: Buffer, required: true, default: "default buffer" },
+  living:     { type: Boolean, required: true, default: false },
+  password:   { type: String, required: true, minlength: 8 },
+  updated:    { type: Date, default: now, min: dummyDate, required: true },
+  age:        { type: Number, min: 18, max: 65, required: true, default: 20 },
+  mixed:      { type: Schema.Types.Mixed, required: true, default: "test", enum: ["test", "test1", "test2"] },
+  array:      [],
+  arrayTwo:   { type: Array, required: true, min: 2, max: 5 },
+  ofString:   [String],
+  ofNumber:   { type: Array, required: true, min: 2, default: [1, 2] },
+  ofDates:    [Date],
+  ofBuffer:   [Buffer],
+  ofBoolean:  [Boolean],
+  ofMixed:    { type: [Schema.Types.Mixed], min: 2},
+  ofObjectId: [Schema.Types.ObjectId],
+  nested: {
+    stuff: { type: String, lowercase: true, trim: true },
+    otherStuff: { type: Number, required: true }
+  },
+  company:    { type: Number, ref: "Company", required: true },
+  _archived: { type: Boolean, required: true, default: false }
+});
+
 ```
+
+[Back to top](#table-of-contents)
+
+## Pagination
+
+Pagination works with the `limit` and `offset` parameters
+- `limit` specify how many results to display
+- `offset` specify at which position to start fetching the data in mongodb (skip)
+
+Example:
+
+_?limit=10&offset=5_ skipps the first 5 documents and fetches the next 10 in the mongodb collection
+
+[Back to top](#table-of-contents)
+
+## Query Pipeline
+`restify-hapi` provides query-paremeters out-of-the-box for almost every mongoose data type. The model attributes are suffixed with `Query`. You can query as following:
+- `single value` e.g. nameQuery=John
+- `array value` e.g. nameQuery=["John", "Doe"]
+- `valid mongodb query` e.g. nameQuery={"name": {"$eq": "John"}}
+
+The query pipeline is not available for all routes. Please refere to [Default Routes](#default-routes) for more information.
+
+[Back to top](#table-of-contents)
+
+## Aggregation Pipeline
+`restify-hapi` also provides an interface to select only certain fields and to sort by fields
+- `sort` comma separated values (prefix with `-` for dsc sort). E.g. _sort_=-_archived,name_
+- `project` select only a subset of fields. Works the same way as sort
 
 [Back to top](#table-of-contents)
 
@@ -208,35 +291,59 @@ The default options (in this case for the sample `company` resource) are as foll
 
 [Back to top](#table-of-contents)
 
-## Default Routes
-- __[GET] /resources__ list all resources ([Query-Pipeline](#{query-pipeline) and [Aggregation Pipeline](#aggregation-pipeline) are available and paging is activated)
-- __[GET] /resources/{id}__ list resource details ([Aggregation Pipeline](#aggregation-pipeline) is available)
-- __[POST] /resocurces__ create a new resource
-- __[PUT] /resources/{id}__ update a resource
-- __[PUT] /resources__ bulk update resources
-- __[DELETE] /resources/{id}__ delete a resource
-- __[DELETE] /resources__ bulk delete resources
+## Testing
+Clone the package, install the dependencies, and then run:
+
+```bash
+$ npm test // runs the unit tests
+$ npm run test-cover // module test-coverage report
+$ npm run test-server // starts the test hapi-server located under ./tests/server.js
+```
 
 [Back to top](#table-of-contents)
 
-## Query Pipeline
-`restify-hapi` provides query-paremeters out-of-the-box for almost every mongoose data type. You can query as following:
-- `single value` e.g. ?name=John
-- `array value` e.g. ?name=["John", "Doe"]
-- `valid mongodb query` e.g. {"name": {"$eq": "John"}}
+## Swagger
 
-The query pipeline is not available for all routes. Please refere to [Default Routes](#default-routes) for more information.
+You can use [hapi-swagger](https://github.com/glennjones/hapi-swagger) to document the auto-generated API. All restified resources will have a very detailed swagger api documentation.
 
-[Back to top](#table-of-contents)
+![swagger](https://docs.google.com/drawings/d/1LZLRjFQ3Gzi0nDMiMwlRDwz5c2vHbNkkTHCcHAQsQBw/pub?w=960&h=720)
 
-## Aggregation Pipeline
-`restify-hapi` also provides an interface to select only certain fields and to sort by fields
-- `sort` comma separated values (prefix with `-` for dsc sort). E.g. _sort=-_archived,name_
-- `project` select only a subset of fields. Works the same way as sort
+Exapmle configuration:
+```javascript
+  const swaggerOptions = {
+    info: {
+      "title": "API Documentation",
+      "version": Pack.version
+    },
+    "basePath": "/api",
+    "pathPrefixSize": 3
+  };
+
+  server.register([
+    Inert,
+    Vision,
+    {
+      "register": HapiSwagger,
+      "options": swaggerOptions
+    }
+  ], next);
+```
 
 [Back to top](#table-of-contents)
 
 ## Tools
-Paging, query pipeline, and aggregation pipeline make use of the modules stored in the [tools](./lib/tools) folder. You can use these tools also for resources which are not restified and which are manually added to the hapi-srever. These ensures that you paging, querying and all aggregations work the same way for those resources aswell. Please refere to the code for doc.
+Pagination, query pipeline, and aggregation pipeline make use of the modules stored in the [tools](./lib/tools) folder. You can use these tools also for resources which are not restified and which are manually added to the hapi-srever. These ensures that you paging, querying and all aggregations work the same way for those resources aswell. Please refere to the code for doc.
+
+| Module | Method | Description |
+| --- | --- | --- |
+| [Enhancer](./lib/tools/enhancer.js) | _dispatchPopulates_ | Builds the populate settings according to the [mongoose guideline](http://mongoosejs.com/docs/populate.html) for the given resource. Takes into account all referenced models and applies the _\_archived_ filter if archive-policy is activated |
+| [Enhancer](./lib/tools/enhancer.js) | _addMetaCollection_ | adds the _links_ (first, prev, self, next, last), _total_, and _count_ information to a collection |
+| [Enhancer](./lib/tools/enhancer.js) | _addMetaResource_ | adds the _links_ (self) information to a single resource |
+| [Parser](./lib/tools/parser.js) | _parse_ | parses the _offset, limit, project, sort, and queries_ parameters |
+| [Security](./lib/tools/security.js) | _hashPassword_ | hash the given password with bcrypt |
+| [Security](./lib/tools/security.js) | _comparePasswords_ | compare a password with a hashedPassword for equality |
+| [Validator](./lib/tools/validator.js) | _validatePassword_ | validates the given password against the specified options |
+| [Validator](./lib/tools/validator.js) | _generateRandomPassword_ | generates a sample password |
+
 
 [Back to top](#table-of-contents)
