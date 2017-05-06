@@ -16,6 +16,9 @@ describe("The FindAllHandler module", function() {
       expect(res.result).to.have.property("_count");
       expect(res.result).to.have.property("records").that.has.lengthOf(5);
       expect(res.result).to.have.deep.property("records[0]").that.has.property("_links");
+      expect(res.result).to.have.deep.property("records[0]").that.has.property("company").that.deep.equal({
+        _id: 0
+      });
       done();
     });
   });
@@ -23,7 +26,9 @@ describe("The FindAllHandler module", function() {
   it("does not populate the company on the users resources", function(done) {
     this.server.inject({ method: "GET", "url": "/api/v1/users"}, (res) => {
       expect(res.statusCode).to.equal(200);
-      expect(res.result).to.have.deep.property("records[0]").that.has.property("company").that.equals(0);
+      expect(res.result).to.have.deep.property("records[0]").that.has.property("company").that.equals({
+        _id: 0
+      });
       done();
     });
   });

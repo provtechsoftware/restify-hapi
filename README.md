@@ -163,6 +163,7 @@ The default options (in this case for the sample `company` resource) are as foll
       }
     }
   ],
+  "model": "Company",
   "routes": {
     "findAll": {
       "enabled": true,
@@ -267,7 +268,11 @@ The default options (in this case for the sample `company` resource) are as foll
   ],
   "prefix": "/api/v1",
   "populate": true,
-  "archive": false
+  "destroy": true,
+  "archive": {
+    "enabled": true,
+    "attribute": "_archived"
+  }
 }
 ```
 

@@ -93,39 +93,36 @@ const loadServer = (next) => {
 const initRoutes = () => {
   // first require all mongoose models because they might be referenced
   // in the restify method
-  const User = require("./fixtures/User");
-  const Company = require("./fixtures/Company");
+  require("./fixtures/User");
+  require("./fixtures/Company");
 
-  const userOptions = {
-    routes: {
-      findAll: {
-        populate: false
+  const options = {
+    User: {
+      routes: {
+        findAll: {
+          populate: false
+        }
       }
+    },
+    Company: {
+      single: "company",
+      multi: "companies",
+      hasMany: [
+        // employees (users) are destroyed when this company is destroyed
+        // however in this case we apply the archive policy. This means
+        // that we do not remove the resources right mark them as _archived=true
+        {
+          fieldName: "employees",
+          destroy: true,
+          archive: {
+            enabled: true
+          }
+        }
+      ]
     }
   };
 
-  const userRoutes = Restify.restify(User, userOptions, Logger);
-  server.route(userRoutes);
-
-  const companyOptions = {
-    single: "company",
-    multi: "companies",
-    hasMany: [
-      // employees (users) are destroyed when this company is destroyed
-      // however in this case we apply the archive policy. This means
-      // that we do not remove the resources right mark them as _archived=true
-      {
-        fieldName: "employees",
-        destroy: true,
-        archive: {
-          enabled: true
-        }
-      }
-    ]
-  };
-
-  const companyRoutes = Restify.restify(Company, companyOptions, Logger);
-  server.route(companyRoutes);
+  server.route(Restify.restify(options, Logger));
 
   server.route({
     method: "GET",

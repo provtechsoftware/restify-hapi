@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     otherStuff: { type: Number, required: true }
   },
   company:    { type: Number, ref: "Company", required: true },
-  _archived: { type: Boolean, required: true, default: false }
+  _archived: { type: Boolean, default: false }
 });
 
 UserSchema.plugin(autoIncrement.plugin, "User");

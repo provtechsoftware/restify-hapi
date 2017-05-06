@@ -84,7 +84,7 @@ describe("The UpdateHandler module", function() {
 
     this.server.inject({ method: "PUT", url: "/api/v1/companies/0", payload: fields}, (res) => {
       expect(res.statusCode).to.equal(400);
-      expect(res.result.message).to.equal("User with id=10 was not found");
+      expect(res.result.message).to.equal("Users with ids=10 not found");
       done();
     });
   });

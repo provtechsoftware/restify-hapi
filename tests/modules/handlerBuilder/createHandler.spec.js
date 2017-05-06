@@ -49,7 +49,7 @@ describe("The CreateHandler module", function() {
 
     this.server.inject({ method: "POST", url: "/api/v1/companies", payload: companyPayload }, (res) => {
       expect(res.statusCode).to.equal(400);
-      expect(res.result.message).to.equal("User with id=10 was not found");
+      expect(res.result.message).to.equal("Users with ids=10 not found");
       done();
     });
   });

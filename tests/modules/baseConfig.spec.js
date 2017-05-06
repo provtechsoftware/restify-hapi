@@ -7,8 +7,10 @@ const BaseConfig = require("../../lib/baseConfig");
 describe("The BaseConfig module", function() {
 
   it("builds the default config for User", function * () {
-    const options = {};
-    const config = yield BaseConfig.validateUserSettings(this.User, options);
+    const options = {
+      model: this.User.modelName
+    };
+    const config = yield BaseConfig.validateSettings(options);
 
     expect(config).to.have.property("auth").that.equals(false);
     expect(config).to.have.property("tags").that.deep.equals(["api"]);
@@ -112,20 +114,24 @@ describe("The BaseConfig module", function() {
 
   it("builds the default config for Company", function * () {
     const options = {
+      model: this.Company.modelName,
       multi: "companies",
       hasMany: [
         {
           fieldName: "employees",
-          destroy: true
+          destroy: true,
         }
       ],
     };
-    const config = yield BaseConfig.validateUserSettings(this.Company, options);
+    const config = yield BaseConfig.validateSettings(options);
 
     expect(config).to.have.property("auth").that.equals(false);
     expect(config).to.have.property("tags").that.deep.equals(["api"]);
     expect(config).to.have.property("hasMany").that.deep.equals([{
-      archive: false,
+      archive: {
+        attribute: "_archived",
+        enabled: true
+      },
       fieldName: "employees",
       destroy: true
     }]);
@@ -229,6 +235,7 @@ describe("The BaseConfig module", function() {
 
   it("applies the user settings correctly", function * () {
     const options = {
+      model: this.User.modelName,
       auth: {
         scope: ["admin"]
       },
@@ -253,7 +260,7 @@ describe("The BaseConfig module", function() {
         }
       }
     };
-    const config = yield BaseConfig.validateUserSettings(this.User, options);
+    const config = yield BaseConfig.validateSettings(options);
 
     expect(config).to.have.property("auth").that.deep.equals({ scope: ["admin"] });
     expect(config).to.have.property("tags").that.deep.equals(["api", "test"]);

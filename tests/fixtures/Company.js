@@ -8,7 +8,8 @@ require("./User");
 
 const CompanySchema = new Schema({
   name: { type: String, required: true },
-  employees: [ { type: Number, ref: "User" } ]
+  employees: [ { type: Number, ref: "User" } ],
+  _archived: { type: Boolean, default: false }
 });
 
 CompanySchema.plugin(autoIncrement.plugin, "Company");
