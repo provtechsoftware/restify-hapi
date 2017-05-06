@@ -4,8 +4,8 @@ A RESTful API generator plugin for the [hapi](https://hapijs.com/) framework uti
 
 [![NPM](https://nodei.co/npm/restify-hapi.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/restify-hapi/)
 
-[![Build status](https://travis-ci.org/zebbra/restify-hapi.svg?branch=master)](https://travis-ci.org/zebbra/restify-hapi)
-[![Dependencies Status](https://david-dm.org/zebbra/hapi-restify/status.svg)](https://david-dm.org/zebbra/restify-hapi)
+[![Build Status](https://travis-ci.org/zebbra/restify-hapi.svg?branch=master)](https://travis-ci.org/zebbra/restify-hapi)
+[![dependencies Status](https://david-dm.org/zebbra/restify-hapi/status.svg?style=flat-square)](https://david-dm.org/zebbra/restify-hapi)
 [![Known Vulnerabilities](https://snyk.io/test/github/zebbra/restify-hapi/badge.svg)](https://snyk.io/test/github/zebbra/restify-hapi)
 
 ## Super simple and yet very powerful
