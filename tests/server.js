@@ -110,7 +110,7 @@ const initRoutes = () => {
       hasMany: [
         // employees (users) are destroyed when this company is destroyed
         // however in this case we apply the archive policy. This means
-        // that we do not remove the resources right mark them as _archived=true
+        // that we do not remove the resources but mark them as _archived=true
         {
           fieldName: "employees",
           destroy: true,

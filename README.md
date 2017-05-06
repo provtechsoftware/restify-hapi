@@ -44,29 +44,41 @@ $ npm install restify-hapi
 ## Example
 This is the example we use in the [test hapi-server](./tests/server.js).
 ```javascript
-  // make sure to register all schemas before applying the restifier!
-  const User = require("./fixtures/User");
-  const Company = require("./fixtures/Company");
+  // first require all mongoose models because they might be referenced
+  // in the restify method
+  require("./fixtures/User");
+  require("./fixtures/Company");
 
-  const userOptions = {};
-  const userRoutes = Restify.restify(User, userOptions, Logger);
-  server.route(userRoutes);
-
-  const companyOptions = {
-    single: "company",
-    multi: "companies",
-    hasMany: [
-     {
-        fieldName: "employees",
-        destroy: true,
-        archive: {
-          enabled: true
+  const options = {
+    User: {
+      routes: {
+        findAll: {
+          populate: false
         }
-    ]
+      }
+    },
+    Company: {
+      single: "company",
+      multi: "companies",
+      hasMany: [
+        // employees (users) are destroyed when this company is destroyed
+        // however in this case we apply the archive policy. This means
+        // that we do not remove the resources but mark them as _archived=true
+        {
+          fieldName: "employees",
+          destroy: true,
+          archive: {
+            enabled: true
+          }
+        }
+      ]
+    }
   };
-  const companyRoutes = Restify.restify(Company, companyOptions, Logger);
-  server.route(companyRoutes);
+
+  server.route(Restify.restify(options, Logger));
 ```
+
+If you enable the archive feature then you have to make sure that your mongoose schemas specify the used archive attribute field (per default this is set to `_archived`)
 
 [Back to top](#table-of-contents)
 
@@ -341,7 +353,6 @@ Pagination, query pipeline, and aggregation pipeline make use of the modules sto
 
 | Module | Method | Description |
 | --- | --- | --- |
-| [Enhancer](./lib/tools/enhancer.js) | _dispatchPopulates_ | Builds the populate settings according to the [mongoose guideline](http://mongoosejs.com/docs/populate.html) for the given resource. Takes into account all referenced models and applies the _\_archived_ filter if archive-policy is activated |
 | [Enhancer](./lib/tools/enhancer.js) | _addMetaCollection_ | adds the _links_ (first, prev, self, next, last), _total_, and _count_ information to a collection |
 | [Enhancer](./lib/tools/enhancer.js) | _addMetaResource_ | adds the _links_ (self) information to a single resource |
 | [Parser](./lib/tools/parser.js) | _parse_ | parses the _offset, limit, project, sort, and queries_ parameters |
