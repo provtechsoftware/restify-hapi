@@ -37,7 +37,7 @@ const loadMongoose = (next) => {
   const url = "mongodb://localhost:27017/restify?auto_reconnect=true";
   const db = mongoose.connection;
 
-  mongoose.connect(url, (err) => {
+  mongoose.connect(url, {useMongoClient: true}, (err) => {
     if (err) {
       Logger.error("err");
     }
