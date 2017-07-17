@@ -1,55 +1,124 @@
 {
+  "_args": [
+    [
+      {
+        "raw": "restify-hapi",
+        "scope": null,
+        "escapedName": "restify-hapi",
+        "name": "restify-hapi",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\1.CurrentProjects\\MaisSindicos\\backend"
+    ]
+  ],
+  "_from": "restify-hapi@latest",
+  "_id": "restify-hapi@1.2.1",
+  "_inCache": true,
+  "_location": "/restify-hapi",
+  "_nodeVersion": "4.4.2",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/restify-hapi-1.2.1.tgz_1494068236658_0.7063456494361162"
+  },
+  "_npmUser": {
+    "name": "mike89",
+    "email": "michael.baertschi@zebbra.ch"
+  },
+  "_npmVersion": "3.10.8",
+  "_phantomChildren": {
+    "hoek": "4.1.1",
+    "isemail": "2.2.1",
+    "items": "2.1.1",
+    "topo": "2.0.2"
+  },
+  "_requested": {
+    "raw": "restify-hapi",
+    "scope": null,
+    "escapedName": "restify-hapi",
     "name": "restify-hapi",
-    "version": "1.2.1",
-    "description": "Restify mongoose models for hapi with joi, boom, and swagger",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "test": "npm run test-unit",
-        "test-unit": "NODE_ENV=test mocha --require co-mocha './**/*.spec.js'",
-        "test-cover": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
-        "test-server": "NODE_ENV=development node tests/server.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+ssh://git@github.com/zebbra/restify-hapi.git"
-    },
-    "keywords": [
-        "nodejs",
-        "hapijs",
-        "mongoose",
-        "joi",
-        "boom",
-        "swagger"
-    ],
-    "author": "Michael Bärtschi <michael.baertschi@zebbra.ch> (http://zebbra.ch)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/zebbra/restify-hapi/issues"
-    },
-    "homepage": "https://github.com/zebbra/restify-hapi#readme",
-    "dependencies": {
-        "async": "2.1.4",
-        "bcrypt": "1.0.2",
-        "boom": "4.2.0",
-        "joi": "10.2.0",
-        "lodash": "4.17.4",
-        "parent-require": "1.0.0"
-    },
-    "devDependencies": {
-        "bluebird": "^3.5.0",
-        "chai": "3.5.0",
-        "co-mocha": "1.2.0",
-        "hapi": "16.1.0",
-        "hapi-swagger": "7.6.0",
-        "inert": "4.1.0",
-        "istanbul": "0.4.5",
-        "mocha": "3.2.0",
-        "mongoose": "^4.11.1",
-        "mongoose-auto-increment": "^5.0.1",
-        "nyc": "^10.1.2",
-        "sinon": "1.17.7",
-        "sinon-chai": "2.8.0",
-        "vision": "4.1.1"
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/restify-hapi/-/restify-hapi-1.2.1.tgz",
+  "_shasum": "280564af9138abc10661983b637b2d18c8087dcc",
+  "_shrinkwrap": null,
+  "_spec": "restify-hapi",
+  "_where": "D:\\1.CurrentProjects\\MaisSindicos\\backend",
+  "author": {
+    "name": "Michael Bärtschi",
+    "email": "michael.baertschi@zebbra.ch",
+    "url": "http://zebbra.ch"
+  },
+  "bugs": {
+    "url": "https://github.com/zebbra/restify-hapi/issues"
+  },
+  "dependencies": {
+    "async": "2.1.4",
+    "bcrypt": "1.0.2",
+    "boom": "4.2.0",
+    "joi": "10.2.0",
+    "lodash": "4.17.4",
+    "mongoose": "4.8.1"
+  },
+  "description": "Restify mongoose models for hapi with joi, boom, and swagger",
+  "devDependencies": {
+    "bluebird": "^3.5.0",
+    "chai": "3.5.0",
+    "co-mocha": "1.2.0",
+    "hapi": "16.1.0",
+    "hapi-swagger": "7.6.0",
+    "inert": "4.1.0",
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "mongoose-auto-increment": "5.0.1",
+    "nyc": "^10.1.2",
+    "sinon": "1.17.7",
+    "sinon-chai": "2.8.0",
+    "vision": "4.1.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "280564af9138abc10661983b637b2d18c8087dcc",
+    "tarball": "https://registry.npmjs.org/restify-hapi/-/restify-hapi-1.2.1.tgz"
+  },
+  "gitHead": "ffdf55af047294989813d8e8ddcacd1762baa620",
+  "homepage": "https://github.com/zebbra/restify-hapi#readme",
+  "keywords": [
+    "nodejs",
+    "hapijs",
+    "mongoose",
+    "joi",
+    "boom",
+    "swagger"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "mike89",
+      "email": "michael.baertschi@zebbra.ch"
     }
+  ],
+  "name": "restify-hapi",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zebbra/restify-hapi.git"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "npm run test-unit",
+    "test-cover": "NODE_ENV=test nyc mocha --require co-mocha './**/*.spec.js'",
+    "test-server": "NODE_ENV=development node tests/server.js",
+    "test-unit": "NODE_ENV=test mocha --require co-mocha './**/*.spec.js'"
+  },
+  "version": "1.2.1"
 }
